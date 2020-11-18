@@ -225,5 +225,11 @@ public class RNOpencv3Module extends ReactContextBaseJavaModule {
         promise.resolve(result);
     }
 	
-	
+	@ReactMethod
+    public void MatOfPoint(final Promise promise) {
+        int matIndex = MatManager.getInstance().createMatOfPoint();
+        WritableNativeMap result = new WritableNativeMap();
+        result.putInt("matIndex", matIndex);
+        promise.resolve(result);
+    }
 }

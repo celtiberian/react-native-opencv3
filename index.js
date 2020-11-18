@@ -8,7 +8,7 @@ const { RNOpencv3 } = NativeModules;
 
 import { ColorConv, CvType, Imgproc, Core } from './constants';
 import { CvScalar, CvPoint, CvSize, CvRect } from './coretypes';
-import { Mat, MatOfInt, MatOfFloat, setTo, get } from './mats';
+import { Mat, MatOfInt, MatOfFloat, MatOfPoint, setTo, get } from './mats';
 import { CvImage } from './cvimage';
 import { findNodeHandle } from 'react-native';
 
@@ -255,6 +255,7 @@ export {
   Mat,
   MatOfInt,
   MatOfFloat,
+  MatOfPoint,
   CvScalar,
   CvPoint,
   CvSize,

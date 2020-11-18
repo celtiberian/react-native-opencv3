@@ -12,6 +12,7 @@ import org.opencv.core.Scalar;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.MatOfFloat;
+import org.opencv.core.MatOfPoint;
 
 import android.util.Log;
 
@@ -86,6 +87,13 @@ class MatManager {
 		else {
 			matToAdd = new MatOfFloat(lomatval, himatval);
 		}
+        mats.add(matToAdd);
+        return matIndex;
+    }
+
+    public static int createMatOfPoint() {
+        int matIndex = mats.size();
+        MatOfPoint matToAdd = new MatOfPoint();
         mats.add(matToAdd);
         return matIndex;
     }
