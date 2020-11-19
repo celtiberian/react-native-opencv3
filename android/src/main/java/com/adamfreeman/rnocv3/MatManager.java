@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableNativeArray;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.opencv.core.Scalar;
 import org.opencv.core.Mat;
@@ -96,6 +97,13 @@ class MatManager {
         MatOfPoint matToAdd = new MatOfPoint();
         mats.add(matToAdd);
         return matIndex;
+    }
+
+    public static int createListOfMapOfPoint() {
+        int listIndex = mats.size();
+        List<MatOfPoint> listToAdd = new ArrayList<>();
+        mats.add(listToAdd);
+        return listIndex;
     }
 
     public static int addMat(Object matToAdd) {

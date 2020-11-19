@@ -150,7 +150,12 @@ class CvInvoke {
            }
            else if (itsType == ReadableType.Map) {
                ReadableMap dMap = RM.getMap(paramNum);
-		       if (param == Mat.class || param == List.class) {
+               if (param == List.class && dMap.hasKey("listIndex")) {
+                   int listIndex = dMap.getInt("listIndex");
+                   List<MatOfPoint> dList = (List<MatOfPoint>)MatManager.getInstance().matAtIndex(listIndex);
+                   retObjs.add(dList);
+               }
+		       else if (param == Mat.class || param == List.class) {
                    int matIndex = dMap.getInt("matIndex");
                    Mat dMat = (Mat)MatManager.getInstance().matAtIndex(matIndex);
 				   if (param == Mat.class) {
