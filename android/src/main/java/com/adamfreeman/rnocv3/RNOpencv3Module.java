@@ -183,7 +183,7 @@ public class RNOpencv3Module extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void getPixelColor(ReadableMap mat, int rownum, int colnum, final Promise promise) {
+    public void getPixelColor(ReadableMap mat, int colnum, int rownum, final Promise promise) {
         promise.resolve(MatManager.getInstance().getPixelColor(mat.getInt("matIndex"), rownum, colnum));
     }
 

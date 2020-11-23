@@ -125,7 +125,7 @@ class MatManager {
         return retArr;
     }
 
-    public static WritableArray getPixelColor (int matIndex, int rownum, int colnum){
+    public static WritableArray getPixelColor (int matIndex, int colnum, int rownum){
         WritableArray retArr = new WritableNativeArray();
         Mat mat = (Mat)matAtIndex(matIndex);
 
