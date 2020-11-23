@@ -140,11 +140,8 @@ class MatManager {
                 WritableNativeArray points = new WritableNativeArray();
 
                 for (Point point : mat.toArray()) {
-                    WritableNativeMap pointMap = new WritableNativeMap();
-
-                    pointMap.putDouble("x", point.x);
-                    pointMap.putDouble("y", point.y);
-                    points.pushMap(pointMap);
+                    points.pushDouble(point.x);
+                    points.pushDouble(point.y);
                 }
 
                 retArr.pushArray(points);
