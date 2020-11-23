@@ -130,7 +130,7 @@ class MatManager {
         Mat mat = (Mat)matAtIndex(matIndex);
 
         if (mat.rows() > 0 && mat.cols() > 0) {
-            double[] retDoubles = mat.get(rownum,colnum);
+            double[] retDoubles = mat.get(colnum,rownum);
 
             for(double retDouble : retDoubles){
                 retArr.pushDouble(retDouble);
