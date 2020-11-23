@@ -24,6 +24,7 @@ export class Mat {
     }
     else if (this.rows && this.cols && this.CvType) {
       res = await RNOpencv3.MatWithParams(this.rows, this.cols, this.CvType)
+      console.log("prueba");
     }
     else {
       res = await RNOpencv3.Mat()
