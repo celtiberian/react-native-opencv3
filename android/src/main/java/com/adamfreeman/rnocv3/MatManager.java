@@ -125,12 +125,12 @@ class MatManager {
         return retArr;
     }
 
-    public static WritableArray getPixelColor (int matIndex, int colnum, int rownum){
+    public static WritableArray getPixelColor (int matIndex, int rownum, int colnum){
         WritableArray retArr = new WritableNativeArray();
         Mat mat = (Mat)matAtIndex(matIndex);
 
         if (mat.rows() > 0 && mat.cols() > 0) {
-            double[] retDoubles = mat.get(colnum,rownum);
+            double[] retDoubles = mat.get(rownum,colnum);
 
             for(double retDouble : retDoubles){
                 retArr.pushDouble(retDouble);
