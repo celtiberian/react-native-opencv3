@@ -87,3 +87,15 @@ export class MatOfFloat {
   	}
   }
 }
+
+export class MatOfPoint {
+  init = async() => {
+    return await RNOpencv3.MatOfPoint()
+  }
+}
+
+export class ListOfMatOfPoint {
+  init = async() => {
+    return await RNOpencv3.ListOfMatOfPoint()
+  }
+}

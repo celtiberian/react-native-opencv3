@@ -5,13 +5,17 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.WritableNativeArray;
+import com.facebook.react.bridge.WritableNativeMap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.opencv.core.Scalar;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.MatOfFloat;
+import org.opencv.core.MatOfPoint;
+import org.opencv.core.Point;
 
 
 import android.util.Log;
@@ -91,6 +95,20 @@ class MatManager {
         return matIndex;
     }
 
+    public static int createMatOfPoint() {
+        int matIndex = mats.size();
+        MatOfPoint matToAdd = new MatOfPoint();
+        mats.add(matToAdd);
+        return matIndex;
+    }
+
+    public static int createListOfMapOfPoint() {
+        int listIndex = mats.size();
+        List<MatOfPoint> listToAdd = new ArrayList<>();
+        mats.add(listToAdd);
+        return listIndex;
+    }
+
     public static int addMat(Object matToAdd) {
         int matIndex = mats.size();
         mats.add(matToAdd);
@@ -113,15 +131,34 @@ class MatManager {
     // TODO: get this to work for different data types checking CvType
     public static WritableArray getMatData(int matIndex, int rownum, int colnum) {
         WritableArray retArr = new WritableNativeArray();
-        Mat mat = (Mat)matAtIndex(matIndex);
-		
-		if (mat.rows() > 0 && mat.cols() > 0) {
-        	float[] retFloats = new float[mat.rows() * mat.cols() * mat.channels()];
-        	mat.get(rownum, colnum, retFloats);
-        	for (float retFloat : retFloats) {
-          		retArr.pushDouble(retFloat);
-        	}
-		}
+
+        Object matObject = matAtIndex(matIndex);
+
+        if (List.class.isAssignableFrom(matObject.getClass())) {
+            List<MatOfPoint> listOfMat = (List<MatOfPoint>)matObject;
+
+            for (MatOfPoint mat : listOfMat) {
+                WritableNativeArray points = new WritableNativeArray();
+
+                for (Point point : mat.toArray()) {
+                    points.pushDouble(point.x);
+                    points.pushDouble(point.y);
+                }
+
+                retArr.pushArray(points);
+            }
+        } else {
+            Mat mat = (Mat)matObject;
+            
+            if (mat.rows() > 0 && mat.cols() > 0) {
+                float[] retFloats = new float[mat.rows() * mat.cols() * mat.channels()];
+                mat.get(rownum, colnum, retFloats);
+                for (float retFloat : retFloats) {
+                    retArr.pushDouble(retFloat);
+                }
+            }
+        }
+
         return retArr;
     }
 

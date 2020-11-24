@@ -44,4 +44,5 @@ local.properties
 buck-out/
 \.buckd/
 *.keystore
-      
+
+react-native-opencv3*.tgz      

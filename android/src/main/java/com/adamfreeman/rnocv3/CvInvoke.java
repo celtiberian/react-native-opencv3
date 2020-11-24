@@ -105,7 +105,6 @@ class CvInvoke {
     }
 
     private Object[] getObjectArr(String func, ReadableMap RM, Class[] params) {
-
         int i = 1;
         ArrayList retObjs = new ArrayList<Object>();
 
@@ -150,15 +149,29 @@ class CvInvoke {
            }
            else if (itsType == ReadableType.Map) {
                ReadableMap dMap = RM.getMap(paramNum);
-		       if (param == Mat.class || param == List.class) {
-                   int matIndex = dMap.getInt("matIndex");
-                   Mat dMat = (Mat)MatManager.getInstance().matAtIndex(matIndex);
-				   if (param == Mat.class) {
-                       retObjs.add(dMat);
-				   }
-				   else {
-	                   retObjs.add(Arrays.asList(dMat));
-				   }
+               if (param == Mat.class || param == List.class) {
+                   int matIndex;
+
+                   if (dMap.hasKey("listIndex")) {
+                       matIndex = dMap.getInt("listIndex");
+                       List<MatOfPoint> dList = (List<MatOfPoint>)MatManager.getInstance().matAtIndex(matIndex);
+                       
+                       if (func.equals("findContours")) {
+                           // Special case, we need to clear the list
+                           dList.clear();
+                       }
+                       
+                       retObjs.add(dList);
+                   } else {
+                       matIndex = dMap.getInt("matIndex");
+                       Mat dMat = (Mat)MatManager.getInstance().matAtIndex(matIndex);
+                       if (param == Mat.class) {
+                          retObjs.add(dMat);
+                       }
+                       else {
+                          retObjs.add(Arrays.asList(dMat));
+                       }
+                   }
 
                    // have to update the dst mat after op ...
                    // should be last mat in function parameters unless exception function
@@ -486,7 +499,7 @@ class CvInvoke {
             }
 
             if (dstMatIndex >= 0) {
-                Mat dstMat = (Mat)objects[arrMatIndex];
+                Object dstMat = objects[arrMatIndex];
                 MatManager.getInstance().setMat(dstMatIndex, dstMat);
                 result = dstMatIndex;
                 dstMatIndex = -1;
