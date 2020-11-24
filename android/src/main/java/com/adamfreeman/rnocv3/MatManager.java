@@ -13,6 +13,7 @@ import org.opencv.core.Mat;
 import org.opencv.core.MatOfInt;
 import org.opencv.core.MatOfFloat;
 
+
 import android.util.Log;
 
 /*
@@ -121,6 +122,21 @@ class MatManager {
           		retArr.pushDouble(retFloat);
         	}
 		}
+        return retArr;
+    }
+
+    public static WritableArray getPixelColor (int matIndex, int rownum, int colnum){
+        WritableArray retArr = new WritableNativeArray();
+        Mat mat = (Mat)matAtIndex(matIndex);
+
+        if (mat.rows() > 0 && mat.cols() > 0) {
+            double[] retDoubles = mat.get(rownum,colnum);
+
+            for(double retDouble : retDoubles){
+                retArr.pushDouble(retDouble);
+            }
+        }
+
         return retArr;
     }
 

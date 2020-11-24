@@ -42,11 +42,10 @@ export class Mat {
     RNOpencv3.setTo(this, color)
   }
 
-  get = async(rownum, colnum, data) => {
-    // not sure if data needs to be returned here ...
-    // this has not been tested yet ...
-    data = await RNOpencv3.getMatData(this, rownum, colnum)
-  }
+  get = async(x, y) => {
+    const data = await RNOpencv3.getPixelColor(this, y, x);
+    return data
+}
 
   put = (rownum, colnum, v0, v1, v2, v3) => {
     RNOpencv3.put(this, rownum, colnum, [v0, v1, v2, v3])
